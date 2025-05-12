@@ -1,0 +1,22 @@
+@startuml sequence_diagram
+actor Игрок as Player
+participant Game
+participant Board
+participant AI
+
+Player -> Game: Создать игру (против ИИ)
+Game -> Board: Инициализация доски
+Game -> AI: Инициализация ИИ
+loop Игровой цикл
+    Player -> Game: Выбрать ход (e2-e4)
+    Game -> Board: Проверить валидность хода
+    Board --> Game: Ход валиден
+    Game -> Board: Применить ход
+    Game -> Game: Проверить состояние игры
+    Game -> AI: Запросить ход ИИ
+    AI -> AI: Рассчитать лучший ход
+    AI -> Game: Вернуть ход (e7-e5)
+    Game -> Board: Применить ход ИИ
+    Game -> Player: Обновить интерфейс
+end
+@enduml

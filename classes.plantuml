@@ -1,0 +1,66 @@
+@startuml class_diagram
+class Game {
+  -board: Board
+  -state: State
+  +Start(): void
+  +MakeMove(move: Move): void
+  +GetPossibleMoves(piece: Piece): List<Move>
+  +SaveGame(filename: string): void
+  +LoadGame(filename: string): void
+}
+
+class Board {
+  -squares: Square[8][8]
+  +GetPieceAt(position: Position): Piece
+  +MovePiece(move: Move): void
+  +IsCheck(player: Player): boolean
+  +IsCheckmate(player: Player): boolean
+}
+
+class Piece {
+  -figure: Figure
+  -color: Color
+}
+
+class Move {
+  -from: Position
+  -to: Position
+  -piece: Piece
+}
+
+class Position {
+  -x: int
+  -y: int
+}
+
+enum Figure {
+  NONE
+  PAWN
+  KNIGHT
+  BISHOP
+  ROOK
+  QUEEN
+  KING
+}
+
+enum Color {
+  NONE
+  WHITE
+  BLACK
+}
+
+enum State {
+  ONGOING
+  CHECK
+  CHECKMATE
+  STALEMATE
+}
+
+Game "1" *-- "1" Board
+Board "1" *-- "64" Square
+Square "1" *-- "0..1" Piece
+Game "1" *-- "1" State
+Move "1" *-- "1" Position
+Piece "1" *-- "1" Color
+Piece "1" *-- "1" Figure
+@enduml

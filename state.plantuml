@@ -1,0 +1,16 @@
+@startuml state_diagram
+[*] --> Idle
+Idle --> GameStarted: Начать игру
+GameStarted --> WhiteTurn: Ход белых
+WhiteTurn --> BlackTurn: Ход сделан
+BlackTurn --> WhiteTurn: Ход сделан
+
+WhiteTurn --> Check: Шах белым
+BlackTurn --> Check: Шах черным
+Check --> WhiteTurn: Белые вышли из шаха
+Check --> BlackTurn: Черные вышли из шаха
+
+Check --> Checkmate: Мат
+Checkmate --> [*]
+GameStarted --> [*]: Игра прервана
+@enduml
